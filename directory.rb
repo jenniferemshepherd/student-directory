@@ -20,10 +20,10 @@ def print_header
   puts "-------------"
 end
 
-def print(students, letter)
+def print(students)
   select_students = []
   students.each do |student|
-    if student[:name].start_with? letter
+    if student[:name].length < 12
       select_students << student
     end
   end
@@ -51,7 +51,10 @@ def input_students
   students
 end
 
+#choose a letter for sorting students by
+letter = "C"
+
 students = input_students
 print_header
-print(students, "c")
+print(students)
 print_footer(students)
