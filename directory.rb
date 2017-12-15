@@ -29,7 +29,11 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if students.count == 1
+    puts "Overall, we have 1 great student"
+  else
+    puts "Overall, we have #{students.count} great students"
+  end
 end
 
 def input_students
@@ -40,8 +44,12 @@ def input_students
   #request first name
   name = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november}
-    puts  "Now we have #{students.length} students"
+    students << {name: name, cohort: :november, hobbies: :cycling, country_of_birth: :UK}
+    if students.length == 1
+      puts "Now we have 1 student"
+    else
+      puts  "Now we have #{students.length} students"
+    end
     name = gets.chomp
   end
   students
