@@ -42,14 +42,19 @@ def input_students
   #create an empty array
   students = []
   #request first name
+  puts "Type name:"
   name = gets.sub("\n","")
   while !name.empty? do
-    students << {name: name, cohort: :november, hobbies: :cycling, country_of_birth: :UK}
+    puts "Type cohort:"
+    cohort = gets.delete("\n")
+    cohort = "november" if cohort == ""
+    students << {name: name, cohort: cohort, hobbies: :cycling, country_of_birth: :UK}
     if students.length == 1
       puts "Now we have 1 student"
     else
       puts  "Now we have #{students.length} students"
     end
+    puts "Type name:"
     name = gets.sub("\n","")
   end
   students
