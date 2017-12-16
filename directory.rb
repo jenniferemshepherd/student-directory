@@ -63,7 +63,31 @@ end
 #choose a letter for sorting students by
 letter = "C"
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    puts "What would you like to do?"
+    selection = gets.chomp
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      if students.count == 0
+        puts "There are no students enrolled."
+      else
+        print_header
+        print(students)
+        print_footer(students)
+      end
+    when "9"
+      break
+    else
+      puts "I don't know what you meant, please try again."
+    end
+  end
+end
+
+interactive_menu
