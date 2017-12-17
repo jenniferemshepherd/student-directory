@@ -86,7 +86,7 @@ def process(selection)
   when "2"
     show_students
   when "9"
-    break
+    exit 
   else
     puts "I don't know what you meant, please try again."
   end
@@ -98,3 +98,5 @@ def interactive_menu
     process(gets.chomp)
   end
 end
+
+interactive_menu
