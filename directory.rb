@@ -22,10 +22,8 @@ def print_header
 end
 
 def print_students
-  n = 1
-  while n <= @students.length
-    puts ("#{n}. " + @students[n-1][:name].to_s).ljust(30) + (" (" + @students[n-1][:cohort].to_s + " cohort)").ljust(20)
-    n +=1
+  @students.each do |student|
+    puts "#{student[:name]}  (#{student[:cohort]} cohort)"
   end
 end
 
@@ -44,26 +42,17 @@ def input_students
   puts "Type name:"
   name = gets.chomp
   while !name.empty? do
-    puts "Type cohort:"
-    cohort = gets.chomp
-    cohort = "november" if cohort == ""
-    @students << {name: name, cohort: cohort, hobbies: :cycling, country_of_birth: :UK}
+    @students << {name: name, cohort: :november}
     if @students.length == 1
       puts "Now we have 1 student."
     else
       puts  "Now we have #{@students.length} students."
     end
-    puts "If you have made a mistake with the previous entry, please type RE-ENTER, otherwise press any key"
-    edit = gets.chomp
-    @students.pop if edit == "RE-ENTER"
-    puts "Type name:"
     name = gets.chomp
   end
   @students
 end
 
-#choose a letter for sorting students by
-letter = "C"
 
 def print_menu
   puts "1. Input the students"
