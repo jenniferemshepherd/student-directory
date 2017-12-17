@@ -24,7 +24,7 @@ end
 def print_students
   n = 1
   while n <= @students.length
-    puts "#{n}. " + @students[n-1][:name].to_s + " (" + @students[n-1][:cohort].to_s + " cohort)"
+    puts ("#{n}. " + @students[n-1][:name].to_s).ljust(20) + (" (" + @students[n-1][:cohort].to_s + " cohort)").ljust(20)
     n +=1
   end
 end
@@ -86,7 +86,7 @@ def process(selection)
   when "2"
     show_students
   when "9"
-    exit 
+    exit
   else
     puts "I don't know what you meant, please try again."
   end
