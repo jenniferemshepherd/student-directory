@@ -24,7 +24,7 @@ end
 def print_students
   n = 1
   while n <= @students.length
-    puts ("#{n}. " + @students[n-1][:name].to_s).ljust(20) + (" (" + @students[n-1][:cohort].to_s + " cohort)").ljust(20)
+    puts ("#{n}. " + @students[n-1][:name].to_s).ljust(30) + (" (" + @students[n-1][:cohort].to_s + " cohort)").ljust(20)
     n +=1
   end
 end
@@ -53,6 +53,9 @@ def input_students
     else
       puts  "Now we have #{@students.length} students."
     end
+    puts "If you have made a mistake with the previous entry, please type RE-ENTER, otherwise press any key"
+    edit = gets.chomp
+    @students.pop if edit == "RE-ENTER"  
     puts "Type name:"
     name = gets.chomp
   end
