@@ -42,7 +42,7 @@ def input_students
   puts "Type name:"
   name = STDIN.gets.chomp
   while !name.empty? do
-    @students << {name: name, cohort: :november}
+    put_students_into_array(name, :november)
     if @students.length == 1
       puts "Now we have 1 student."
     else
@@ -110,10 +110,11 @@ def load_students(filename = "students.csv")
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    put_students_into_array(name, cohort.to_sym)
   end
   file.close
 end
+
 
 def try_load_students
   filename = ARGV.first
@@ -124,6 +125,10 @@ def try_load_students
     puts "Loaded #{filename} doesn't exist."
     exit
   end
+end
+
+def put_students_into_array(name, cohort)
+  @students << {name: name, cohort: cohort}
 end
 
 try_load_students
