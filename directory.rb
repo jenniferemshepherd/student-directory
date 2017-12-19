@@ -16,6 +16,44 @@
 
 @students = []
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
+  puts "9. Exit"
+  puts "What would you like to do?"
+end
+
+def user_choice(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "3"
+    puts "Call my file:"
+    filename = gets.chomp
+    save_students(filename)
+  when "4"
+    puts "Load file:"
+    filename = gets.chomp
+    load_students(filename)
+  when "9"
+    exit
+  else
+    puts "I don't know what you meant, please try again."
+  end
+end
+
+
+def interactive_menu
+  loop do
+    print_menu
+    user_choice(STDIN.gets.chomp)
+  end
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -35,11 +73,13 @@ def print_footer
   end
 end
 
+def put_students_into_array(name, cohort)
+  @students << {name: name, cohort: cohort}
+end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish just hit return twice"
-  #request first name
-  puts "Type name:"
   name = STDIN.gets.chomp
   while !name.empty? do
     put_students_into_array(name, :november)
@@ -50,16 +90,8 @@ def input_students
     end
     name = STDIN.gets.chomp
   end
+  puts "You have input the students."
   @students
-end
-
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
-  puts "What would you like to do?"
 end
 
 def show_students
@@ -72,49 +104,25 @@ def show_students
   end
 end
 
-def process(selection)
-  case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit
-  else
-    puts "I don't know what you meant, please try again."
-  end
-end
-
-def interactive_menu
-  loop do
-    print_menu
-    process(STDIN.gets.chomp)
-  end
-end
-
-def save_students
-  file = File.open("students.csv","w")
+def save_students(filename)
+  file = File.open(filename,"w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
+    csv_line = [student[:name], student[:cohort]].join(",")
     file.puts csv_line
   end
   file.close
+  puts "You have saved the students into #{filename}"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     put_students_into_array(name, cohort.to_sym)
   end
   file.close
+  puts "The students have been loaded from #{filename}"
 end
-
 
 def try_load_students
   filename = ARGV.first
@@ -127,9 +135,4 @@ def try_load_students
   end
 end
 
-def put_students_into_array(name, cohort)
-  @students << {name: name, cohort: cohort}
-end
-
-try_load_students
 interactive_menu
